@@ -23,4 +23,4 @@ function connectFactory() {
   };
 }
 
-export default { connect: connectFactory() };
+export default connectFactory();
