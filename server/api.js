@@ -1,5 +1,5 @@
 import express from "express";
-import { config, logger, mongodb } from "#server/lib";
+import { config, logger, mongodb } from "#src/api/lib";
 
 // TODO just a file server currently, should be replaced by a real api server
 function startServer() {

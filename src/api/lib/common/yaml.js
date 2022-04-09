@@ -1,7 +1,7 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
-import rootdir from "#server/lib/common/rootdir";
+import rootdir from "#src/api/lib/common/rootdir";
 
 function load(name) {
   const filename = `${name}.yml`;

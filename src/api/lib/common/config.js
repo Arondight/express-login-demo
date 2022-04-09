@@ -1,5 +1,5 @@
-import rootdir from "#server/lib/common/rootdir";
-import yaml from "#server/lib/common/yaml";
+import rootdir from "#src/api/lib/common/rootdir";
+import yaml from "#src/api/lib/common/yaml";
 
 class Config {
   constructor() {
