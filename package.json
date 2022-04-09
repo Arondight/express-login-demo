@@ -1,7 +1,7 @@
 {
   "name": "express-login-demo",
   "version": "0.1",
-  "description": "login demo using express.js",
+  "description": "login demo with Express.js and Vue.js",
   "repository": "https://github.com/Arondight/express-login-demo.git",
   "homepage": "https://github.com/Arondight/express-login-demo",
   "bugs": "https://github.com/Arondight/express-login-demo.git/issues",
@@ -17,18 +17,23 @@
   "engines": {
     "node": ">16.0.0"
   },
+  "imports": {
+    "#server/*": "./server/*.js",
+    "#src/*": "./src/*.js"
+  },
   "scripts": {
-    "start": "npx vite",
+    "start": "node server.js",
     "build": "npx vite build",
-    "preview": "npx vite preview",
-    "check": "npx eslint ./*.js ./*.html ./src/",
-    "format": "npx prettier --config ./.prettierrc.json -uw ./*.md ./*.js ./.*.json ./*.json ./*.html ./src/",
+    "check": "npx eslint ./*.js ./*.html ./server/ ./src/",
+    "format": "npx prettier --config ./.prettierrc.json -uw ./*.md ./*.js ./.*.json ./*.json ./*.html ./server/ ./src/",
     "update": "npx ncu -u; npm update"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "2.3.0",
     "express": "4.17.3",
+    "js-yaml": "4.1.0",
     "lodash": "4.17.21",
+    "mongoose": "6.2.10",
     "vite": "2.9.0",
     "vue": "3.2.25",
     "yargs": "17.4.0"
