@@ -2,7 +2,7 @@
 
 ## About
 
-A login demo with [Express.js](https://github.com/expressjs/express.git) and [Vue.js](https://github.com/vuejs/core.git).
+A login demo with [Express.js](https://github.com/expressjs/express.git) and [Vue.js](https://github.com/vuejs/core.git). This I use to practice front-end techniques.
 
 ## Build
 

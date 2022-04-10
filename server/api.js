@@ -3,7 +3,7 @@ import connectMongoDBSession from "connect-mongodb-session";
 import express from "express";
 import session from "express-session";
 import { mongodb } from "#src/api/lib";
-import { indexRouter } from "#src/api/router";
+import router from "#src/api/router";
 import { config, logger } from "#src/lib";
 
 function startServer() {
@@ -37,7 +37,8 @@ function startServer() {
       }),
     })
   );
-  server.use("/", indexRouter);
+  server.use("/", router.index);
+  server.use("/user", router.user);
   server.listen(config.api.port);
 }
 

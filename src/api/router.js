@@ -1,3 +1,4 @@
-import indexRouter from "#src/api/router/index";
+import index from "#src/api/router/index";
+import user from "#src/api/router/user";
 
-export { indexRouter };
+export default { index, user };
