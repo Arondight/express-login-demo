@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import config from "#src/api/lib/common/config";
-import logger from "#src/api/lib/logger";
+import config from "#src/lib/config";
+import logger from "#src/lib/logger";
 
 function connectFactory() {
   let run = false;

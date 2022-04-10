@@ -1,12 +1,12 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
-import rootdir from "#src/api/lib/common/rootdir";
+import rootDir from "#src/lib/rootdir";
 
 function load(name) {
   const filename = `${name}.yml`;
-  const configdir = path.resolve(rootdir, "configs");
-  let filepath = path.resolve(configdir, filename);
+  const configDir = path.resolve(rootDir, "config");
+  let filepath = path.resolve(configDir, filename);
 
   try {
     fs.accessSync(filepath, fs.constants.R_OK);

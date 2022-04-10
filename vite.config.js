@@ -8,7 +8,7 @@ const config = defineConfig(({ command, mode }) => {
   switch (command) {
     case "build":
       return {
-        base: env.VITE_PUBLIC_PATH || "/dist",
+        base: env.VITE_PUBLIC_PATH || "/",
         plugins: [vue()],
       };
     default:

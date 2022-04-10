@@ -12,7 +12,7 @@ cd ./express-login-demo/
 npm install
 npm run build
 npm start
-xdg-open https://localhost:3000
+xdg-open https://localhost:8000
 ```
 
 ## LICENSE
