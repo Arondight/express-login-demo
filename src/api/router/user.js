@@ -1,18 +1,13 @@
 import express from "express";
-import logged from "#src/api/middlewares/user/logged";
-import login from "#src/api/middlewares/user/login";
-import register from "#src/api/middlewares/user/register";
-import remove from "#src/api/middlewares/user/remove";
-import session from "#src/api/middlewares/user/session";
-import users from "#src/api/middlewares/user/users";
+import { user } from "#src/api/middleware";
 
 const router = express.Router();
 
-router.get("/session/get", logged.yes, session.get);
-router.get("/session/remove", logged.yes, session.remove);
-router.get("/users", logged.yes, users);
-router.post("/login", logged.no, login);
-router.post("/register", logged.no, register);
-router.post("/remove", logged.yes, remove);
+router.get("/session/get", user.logged.yes, user.session.get);
+router.get("/session/remove", user.logged.yes, user.session.remove);
+router.get("/users", user.logged.yes, user.users);
+router.post("/login", user.logged.no, user.login);
+router.post("/register", user.logged.no, user.register);
+router.post("/remove", user.logged.yes, user.remove);
 
 export default router;
