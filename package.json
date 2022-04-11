@@ -24,8 +24,8 @@
   "scripts": {
     "start": "node app.js",
     "build": "npx vite build",
-    "check": "npx eslint ./*.js ./*.html ./config/ ./server/ ./src/",
-    "format": "npx prettier --config ./.prettierrc.json -uw ./*.md ./*.js ./.*.json ./*.json ./*.html ./config/ ./server/ ./src/",
+    "check": "npx eslint ./*.js ./*.html ./config/ ./podman-compose/ ./server/ ./src/",
+    "format": "npx prettier --config ./.prettierrc.json -uw ./*.md ./*.js ./.*.json ./*.json ./*.html ./config/ ./podman-compose/ ./server/ ./src/",
     "update": "npx ncu -u; npm update"
   },
   "dependencies": {
