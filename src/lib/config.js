@@ -1,6 +1,6 @@
-import path from "path";
 import rootDir from "#src/lib/rootdir";
 import yaml from "#src/lib/yaml";
+import path from "path";
 
 class Config {
   constructor() {

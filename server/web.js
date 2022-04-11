@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { config, logger } from "#src/lib";
+import { config, logger } from "#@src/lib";
 
 function startServer() {
   const server = express();

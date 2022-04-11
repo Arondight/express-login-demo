@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import sha256 from "crypto-js/sha256.js";
-import mongodb from "#src/api/lib/mongodb";
+import mongodb from "#@src/api/lib/mongodb";
 
 function login(req, res) {
   if ("string" !== typeof req.body.username) {

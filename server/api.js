@@ -2,9 +2,9 @@ import bodyParser from "body-parser";
 import connectMongoDBSession from "connect-mongodb-session";
 import express from "express";
 import session from "express-session";
-import { mongodb } from "#src/api/lib";
-import router from "#src/api/router";
-import { config, logger } from "#src/lib";
+import { mongodb } from "#@src/api/lib";
+import router from "#@src/api/router";
+import { config, logger } from "#@src/lib";
 
 function startServer() {
   const server = express();
@@ -37,7 +37,7 @@ function startServer() {
       }),
     })
   );
-  server.use("/", router.index);
+  server.use("/hello", router.hello);
   server.use("/user", router.user);
   server.listen(config.api.port);
 }

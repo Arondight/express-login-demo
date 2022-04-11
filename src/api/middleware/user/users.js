@@ -1,4 +1,4 @@
-import mongodb from "#src/api/lib/mongodb";
+import mongodb from "#@src/api/lib/mongodb";
 
 function users(req, res) {
   mongodb.models.User.find({})

@@ -1,5 +1,5 @@
 import sha256 from "crypto-js/sha256.js";
-import mongodb from "#src/api/lib/mongodb";
+import mongodb from "#@src/api/lib/mongodb";
 
 function register(req, res) {
   if ("string" !== typeof req.body.username) {

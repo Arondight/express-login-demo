@@ -1,5 +1,5 @@
 import express from "express";
-import { user } from "#src/api/middleware";
+import { user } from "#@src/api/middleware";
 
 const router = express.Router();
 

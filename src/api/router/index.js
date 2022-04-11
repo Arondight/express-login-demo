@@ -1,7 +1,4 @@
-import express from "express";
+import hello from "#src/api/router/hello";
+import user from "#src/api/router/user";
 
-const router = express.Router();
-
-router.get("/", (req, res) => res.send("Hello Express.js!"));
-
-export default router;
+export default { hello, user };

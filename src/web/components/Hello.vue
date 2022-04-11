@@ -9,5 +9,5 @@ const text = ref(`Hello ${toRef(props, "msg").value}!`);
 </script>
 
 <template>
-  <h1>{{ text }}</h1>
+  <el-button>{{ text }}</el-button>
 </template>

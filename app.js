@@ -1,6 +1,6 @@
 import { fork } from "child_process";
 import path from "path";
-import { config, logger } from "#src/lib";
+import { config, logger } from "#@src/lib";
 
 let mPostRunning = false;
 const server = {
