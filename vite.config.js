@@ -12,10 +12,12 @@ export default defineConfig(({ command, mode }) => {
   const root = path.resolve(_config.dir.root, "src", "web");
   const dir = {
     components: path.resolve(root, "components"),
+    css: path.resolve(root, "css"),
     root,
+    router: path.resolve(root, "router"),
     views: path.resolve(root, "views"),
   };
-  const base = { production: env.VITE_PUBLIC_PATH || "/" };
+  const base = env.VITE_PUBLIC_PATH || "/";
   const plugins = [
     AutoImport({ resolvers: [ElementPlusResolver()] }),
     Components({ resolvers: [ElementPlusResolver()] }),
@@ -25,11 +27,13 @@ export default defineConfig(({ command, mode }) => {
     alias: {
       "@_": dir.root,
       "@components": dir.components,
+      "@css": dir.css,
+      "@router": dir.router,
       "@views": dir.views,
     },
   };
   const server = { host: true, port: 8000 };
-  const config = { base: base[mode], plugins, resolve };
+  const config = { base, plugins, resolve };
 
   if ("serve" === command) {
     config.server = server;

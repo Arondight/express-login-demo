@@ -24,8 +24,9 @@
     "#src/*": "./src/*.js"
   },
   "scripts": {
-    "start": "node app.js",
     "build": "npx vite build",
+    "start": "node app.js",
+    "serve": "npx vite serve",
     "check": "npx eslint ./*.js ./*.html ./config/ ./podman-compose/ ./server/ ./src/",
     "format": "npx prettier --config ./.prettierrc.json -uw ./*.md ./*.js ./.*.json ./*.json ./*.html ./config/ ./podman-compose/ ./server/ ./src/",
     "update": "npx ncu -u; npm update"
@@ -45,7 +46,8 @@
     "unplugin-auto-import": "0.7.0",
     "unplugin-vue-components": "0.19.2",
     "vite": "2.9.1",
-    "vue": "3.2.31"
+    "vue": "3.2.32",
+    "vue-router": "4.0.14"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
