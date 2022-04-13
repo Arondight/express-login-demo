@@ -16,7 +16,7 @@ function login(req, res) {
   mongodb.models.User.findOne({ username: req.body.username.toLowerCase() })
     .then((docs) => {
       if (!docs) {
-        res.json({ success: false, message: "not found" });
+        res.json({ success: false, message: "username not found" });
       } else if (password === docs.password) {
         req.session.user = lodash.omit(docs, "password");
         res.json({ success: true, message: "logged", ...lodash.pick(docs, ["username", "ctime"]) });

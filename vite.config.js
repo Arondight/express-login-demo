@@ -18,6 +18,7 @@ export default defineConfig(({ command, mode }) => {
     views: path.resolve(root, "views"),
   };
   const base = env.VITE_PUBLIC_PATH || "/";
+  const build = { target: "es6" };
   const plugins = [
     AutoImport({ resolvers: [ElementPlusResolver()] }),
     Components({ resolvers: [ElementPlusResolver()] }),
@@ -33,7 +34,7 @@ export default defineConfig(({ command, mode }) => {
     },
   };
   const server = { host: true, port: 8000 };
-  const config = { base, plugins, resolve };
+  const config = { base, build, plugins, resolve };
 
   if ("serve" === command) {
     config.server = server;

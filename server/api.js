@@ -1,17 +1,21 @@
 import bodyParser from "body-parser";
 import connectMongoDBSession from "connect-mongodb-session";
+import cors from "cors";
 import express from "express";
 import session from "express-session";
+import morgan from "morgan";
 import { mongodb } from "#@src/api/lib";
 import router from "#@src/api/router";
 import { config, logger } from "#@src/lib";
+
+const m_NAME = "api server";
 
 function startServer() {
   const server = express();
   const store = connectMongoDBSession(session);
 
   function debug(...args) {
-    logger.debug("api server", ...args);
+    logger.debug(m_NAME, ...args);
   }
 
   debug("port:", config.api.port);
@@ -20,6 +24,10 @@ function startServer() {
   debug("session store url:", config.api.session.connection);
   debug("session store collection:", config.api.session.secret);
 
+  morgan.token("token", () => `debug: ${m_NAME}:`);
+
+  server.use(morgan(":token :method :url :response-time"));
+  server.use(cors());
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(
@@ -39,13 +47,21 @@ function startServer() {
   );
   server.use("/hello", router.hello);
   server.use("/user", router.user);
-  server.listen(config.api.port);
+  server.listen(config.api.port, "0.0.0.0");
+}
+
+async function post() {
+  mongodb.disconnect();
 }
 
 (function main() {
+  for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
+    process.on(signal, () => post().then((n) => process.exit(n)));
+  }
+
   logger.info("connecting to mongodb...");
   mongodb.connect();
 
-  logger.info("starting api server...");
+  logger.info(`starting ${m_NAME} ...`);
   startServer();
 })();

@@ -21,8 +21,7 @@
         "ignoreMemberSort": false,
         "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
       }
-    ],
-    "vue/comment-directive": 0
+    ]
   },
   "overrides": [
     {
@@ -31,8 +30,12 @@
       "extends": ["plugin:yml/recommended"]
     },
     {
-      "files": ["*.html"],
+      "files": ["*.vue"],
       "plugins": ["vue"]
+    },
+    {
+      "files": ["**/*.html"],
+      "rules": { "vue/comment-directive": "off" }
     }
   ]
 }
