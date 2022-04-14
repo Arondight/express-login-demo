@@ -1,15 +1,15 @@
-function logged(req, res, next) {
+function hasLogged(req, res, next) {
   if (!req.session.user) {
-    return res.json({ error: "unlogged", session: false });
+    return res.json({ success: false, error: "not logged" });
   }
   next();
 }
 
 function notLogged(req, res, next) {
   if (req.session.user) {
-    return res.json({ error: "logged", session: true });
+    return res.json({ success: true, error: "has logged" });
   }
   next();
 }
 
-export default { yes: logged, no: notLogged };
+export default { yes: hasLogged, no: notLogged };

@@ -1,3 +1,4 @@
+import session from "#@src/api/middleware/session";
 import user from "#@src/api/middleware/user";
 
-export { user };
+export { session, user };

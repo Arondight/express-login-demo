@@ -13,7 +13,7 @@ function connectFactory() {
     run = true;
 
     mongoose
-      .connect(config.mongodb.connection)
+      .connect(config.api.mongodb.connection)
       .then(() => logger.info("mongodb connected."))
       .catch((e) => {
         logger.error("failed connect to mongodb: ", e);

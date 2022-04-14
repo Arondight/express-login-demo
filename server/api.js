@@ -13,6 +13,7 @@ const m_NAME = "api server";
 function startServer() {
   const server = express();
   const store = connectMongoDBSession(session);
+  const maxAge = config.api.session.cookie.maxAge || 5 * 60 * 60;
 
   function debug(...args) {
     logger.debug(m_NAME, ...args);
@@ -23,6 +24,7 @@ function startServer() {
   debug("session key:", config.api.session.secret);
   debug("session store url:", config.api.session.connection);
   debug("session store collection:", config.api.session.secret);
+  debug("session cookie maxAge:", maxAge);
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
 
@@ -36,9 +38,7 @@ function startServer() {
       key: config.api.session.secret,
       resave: false,
       saveUninitialized: true,
-      cookie: {
-        maxAge: 10000,
-      },
+      cookie: { maxAge, expires: new Date(Date.now() + maxAge) },
       store: new store({
         uri: config.api.session.connection,
         collection: config.api.session.secret,
