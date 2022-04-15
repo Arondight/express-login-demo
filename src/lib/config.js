@@ -17,9 +17,12 @@ class Config {
           connection: "mongodb://localhost:27019/express-login-demo",
         },
         session: {
-          cookie: { maxAge: 5 * 60 * 60 },
-          connection: "mongodb://localhost:27019/express-login-demo-session-secret",
           secret: "express-login-demo-session-secret",
+          cookie: { maxAge: 5 * 60 * 60 },
+          mongodb: {
+            connection: "mongodb://localhost:27019/express-login-demo-session",
+            collection: "session",
+          },
         },
       },
       web: { port: 8000 },

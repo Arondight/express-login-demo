@@ -3,7 +3,7 @@ function get(req, res) {
 }
 
 function remove(req, res) {
-  req.session.user = null;
+  delete req.session.user;
   res.json({ success: true, message: "session removed" });
 }
 

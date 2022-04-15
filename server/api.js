@@ -21,9 +21,8 @@ function startServer() {
 
   debug("port:", config.api.port);
   debug("session secret:", config.api.session.secret);
-  debug("session key:", config.api.session.secret);
-  debug("session store url:", config.api.session.connection);
-  debug("session store collection:", config.api.session.secret);
+  debug("session store url:", config.api.session.mongodb.connection);
+  debug("session store collection:", config.api.session.mongodb.collection);
   debug("session cookie maxAge:", maxAge);
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
@@ -35,13 +34,12 @@ function startServer() {
   server.use(
     session({
       secret: config.api.session.secret,
-      key: config.api.session.secret,
       resave: false,
       saveUninitialized: true,
       cookie: { maxAge, expires: new Date(Date.now() + maxAge) },
       store: new store({
-        uri: config.api.session.connection,
-        collection: config.api.session.secret,
+        uri: config.api.session.mongodb.connection,
+        collection: config.api.session.mongodb.collection,
       }),
     })
   );

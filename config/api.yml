@@ -2,8 +2,9 @@ port: 3000
 mongodb:
   connection: "mongodb://localhost:27019/express-login-demo"
 session:
-  cookie:
-    # 5 * 60 * 1000
-    maxAge: 300000
-  connection: "mongodb://localhost:27019/express-login-demo-session-secret"
   secret: "express-login-demo-session-secret"
+  cookie:
+    maxAge: 300000 # 5 * 60 * 1000
+  mongodb:
+    connection: "mongodb://localhost:27019/express-login-demo-session"
+    collection: "session"

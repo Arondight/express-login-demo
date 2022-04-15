@@ -8,7 +8,8 @@ import "element-plus/dist/index.css";
 
 const app = createApp(App);
 
-app.config.globalProperties.$http = axios;
+app.config.globalProperties.axios = axios;
+app.provide("axios", app.config.globalProperties.axios);
 app.use(ElementPlus);
 app.use(router);
 app.mount("#app");

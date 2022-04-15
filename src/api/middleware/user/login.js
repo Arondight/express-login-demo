@@ -18,13 +18,14 @@ function login(req, res) {
       if (!docs) {
         res.json({ success: false, message: "username not found" });
       } else if (password === docs.password) {
-        req.session.user = lodash.omit(docs, "password");
+        req.session.username = docs.username;
+        req.session.save();
         res.json({ success: true, message: "logged", ...lodash.pick(docs, ["username", "ctime"]) });
       } else {
         res.json({ success: false, message: "wrong password" });
       }
     })
-    .catch((err) => res.json(err));
+    .catch((err) => res.send(err));
 }
 
 export default login;
