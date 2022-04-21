@@ -35,20 +35,21 @@
     "@vitejs/plugin-vue": "2.3.1",
     "axios": "0.26.1",
     "body-parser": "1.20.0",
+    "connect-history-api-fallback": "1.6.0",
     "connect-mongodb-session": "3.1.1",
     "cors": "2.8.5",
     "crypto-js": "4.1.1",
-    "element-plus": "2.1.9",
+    "element-plus": "2.1.10",
     "express": "4.17.3",
     "express-session": "1.17.2",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "mongoose": "6.2.10",
+    "mongoose": "6.3.0",
     "morgan": "1.10.0",
-    "unplugin-auto-import": "0.7.0",
-    "unplugin-vue-components": "0.19.2",
-    "vite": "2.9.1",
-    "vue": "3.2.32",
+    "unplugin-auto-import": "0.7.1",
+    "unplugin-vue-components": "0.19.3",
+    "vite": "2.9.5",
+    "vue": "3.2.33",
     "vue-router": "4.0.14"
   },
   "devDependencies": {
@@ -60,7 +61,7 @@
     "eslint-plugin-sort-exports": "0.6.0",
     "eslint-plugin-vue": "8.6.0",
     "eslint-plugin-yml": "0.14.0",
-    "npm-check-updates": "12.5.8",
+    "npm-check-updates": "12.5.9",
     "prettier": "2.6.2"
   }
 }

@@ -10,14 +10,14 @@ import { config, logger } from "#@src/lib";
 
 const m_NAME = "api server";
 
+function debug(...args) {
+  logger.debug(m_NAME, ...args);
+}
+
 function startServer() {
   const server = express();
   const store = connectMongoDBSession(session);
   const maxAge = config.api.session.cookie.maxAge || 5 * 60 * 60;
-
-  function debug(...args) {
-    logger.debug(m_NAME, ...args);
-  }
 
   debug("port:", config.api.port);
   debug("session secret:", config.api.session.secret);
@@ -26,9 +26,8 @@ function startServer() {
   debug("session cookie maxAge:", maxAge);
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
-
   server.use(morgan(":token :method :url :response-time"));
-  server.use(cors());
+  server.use(cors({ credentials: true, origin: true }));
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(

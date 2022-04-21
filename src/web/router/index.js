@@ -1,10 +1,14 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import Hello from "@views/Hello.vue";
+import Login from "@views/Login.vue";
+import NotFound from "@views/NotFound.vue";
+import Register from "@views/Register.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-  { path: "/hello", name: "Home", component: () => import("@views/Hello.vue") },
-  { path: "/login", name: "Login", component: () => import("@views/Login.vue") },
-  { path: "/register", name: "Register", component: () => import("@views/Register.vue") },
-  { path: "/:catchAll(.*)", name: "NotFound", component: () => import("@views/NotFound.vue") },
+  { path: "/hello", name: "Home", component: Hello },
+  { path: "/login", name: "Login", component: Login },
+  { path: "/register", name: "Register", component: Register },
+  { path: "/:catchAll(.*)", name: "NotFound", component: NotFound },
 ];
 
-export default createRouter({ history: createWebHashHistory(), routes });
+export default createRouter({ history: createWebHistory(), routes });

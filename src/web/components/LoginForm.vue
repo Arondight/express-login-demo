@@ -6,7 +6,7 @@
     <el-form-item :clearable="true" label="password" prop="password">
       <el-input v-model="loginForm.password" placeholder="at least 6 characters" show-password />
     </el-form-item>
-    <el-form-item v-show="isRegister" :clearable="true" label="confirm" prop="confirm">
+    <el-form-item v-if="isRegister" :rules="confirmItemRules" :clearable="true" label="confirm" prop="confirm">
       <el-input v-model="loginForm.confirm" placeholder="confirm password" show-password />
     </el-form-item>
     <el-form-item>
@@ -15,7 +15,7 @@
           <el-button @click="submit" type="primary">{{ true === isRegister ? "register" : "login" }}</el-button>
         </el-col>
         <el-col :span="12">
-          <el-button @click="changeType">{{
+          <el-button @click="isRegister = !isRegister">{{
             true === isRegister ? "login with an account" : "register an account"
           }}</el-button>
         </el-col>
@@ -27,14 +27,14 @@
 <script setup>
 import { ElMessage } from "element-plus";
 import lodash from "lodash";
-import { defineProps, inject, ref, toRef, unref } from "vue";
+import { defineProps, inject, reactive, ref, toRef } from "vue";
 
 const axios = inject("axios");
 const props = defineProps({ type: { type: String, default: "login" } });
 const type = ref(toRef(props, "type").value);
-let isRegister = ref("register" === unref(type));
+let isRegister = ref("register" === type.value);
 const loginFormRef = ref();
-const loginForm = ref({ username: "", password: "", confirm: "" });
+const loginForm = reactive({ username: "", password: "", confirm: "" });
 const check = {
   username(rule, value, cb) {
     if (/^\w+$/.test(value)) {
@@ -51,7 +51,7 @@ const check = {
     }
   },
   confirm(rule, value, cb) {
-    const { password, confirm } = unref(loginForm);
+    const { password, confirm } = loginForm;
 
     if (password === confirm) {
       cb();
@@ -60,47 +60,28 @@ const check = {
     }
   },
 };
-const confirmRules = [
+const loginFormRules = reactive({
+  username: [
+    { required: true, message: "can not be empty", trigger: "blur" },
+    { min: 3, message: "at least 3 characters", trigger: "blur" },
+    { validator: check.username, trigger: "blur" },
+  ],
+  password: [
+    { required: true, message: "can not be empty", trigger: "blur" },
+    { min: 6, message: "at least 6 characters", trigger: "blur" },
+    { validator: check.password, trigger: "blur" },
+  ],
+});
+const confirmItemRules = reactive([
   { required: true, message: "can not be empty", trigger: "blur" },
   { min: 6, message: "at least 6 characters", trigger: "blur" },
   { validator: check.confirm, trigger: "blur" },
-];
-const loginFormRules = ref(
-  Object.assign(
-    {
-      username: [
-        { required: true, message: "can not be empty", trigger: "blur" },
-        { min: 3, message: "at least 3 characters", trigger: "blur" },
-        { validator: check.username, trigger: "blur" },
-      ],
-      password: [
-        { required: true, message: "can not be empty", trigger: "blur" },
-        { min: 6, message: "at least 6 characters", trigger: "blur" },
-        { validator: check.password, trigger: "blur" },
-      ],
-    },
-    true === unref(isRegister) ? { confirm: confirmRules } : {}
-  )
-);
-
-function changeType() {
-  if (true === unref(isRegister)) {
-    delete loginFormRules.value.confirm;
-  } else {
-    loginFormRules.value.confirm = confirmRules;
-  }
-
-  isRegister.value = !unref(isRegister);
-}
-
-function reset() {
-  unref(loginFormRef).resetFields();
-}
+]);
 
 function submit() {
-  unref(loginFormRef)
+  loginFormRef.value
     .validate((valid) => {
-      const api = true === unref(isRegister) ? "register" : "login";
+      const api = true === isRegister.value ? "register" : "login";
 
       if (!valid) {
         ElMessage({ type: "error", message: "please check your options", showClose: true });
@@ -109,14 +90,14 @@ function submit() {
 
       axios(`${window.location.protocol}//${window.location.hostname}:3000/user/${api}`, {
         method: "POST",
-        data: lodash.pick(unref(loginForm), ["username", "password"]),
+        data: lodash.pick(loginForm, ["username", "password"]),
       })
         .then((res) => {
           if (200 === res.status && true === res.data.success) {
-            if (true === unref(isRegister)) {
-              isRegister.value = !unref(isRegister);
-              reset();
+            if (true === isRegister.value) {
+              isRegister.value = !isRegister.value;
               ElMessage({ type: "success", message: "register success", showClose: true });
+              loginFormRef.value.resetFields();
               return;
             }
 
@@ -126,10 +107,8 @@ function submit() {
 
           ElMessage({ type: "error", message: res.data.message || `${api} failed`, showClose: true });
         })
-        .catch((e) => {
-          ElMessage({ type: "error", message: e.message || "api server error", showClose: true });
-        });
+        .catch((e) => ElMessage({ type: "error", message: e.message || "api server error", showClose: true }));
     })
-    .catch((e) => console.error("21321323", e));
+    .catch((e) => console.error(e));
 }
 </script>
