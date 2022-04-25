@@ -11,5 +11,7 @@ axios.defaults.withCredentials = true;
 
 app.provide("axios", axios);
 app.provide("router", router);
+
 app.use(router);
+
 app.mount("#app");

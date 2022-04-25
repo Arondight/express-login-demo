@@ -8,14 +8,18 @@ import { defineProps, inject, toRef } from "vue";
 
 const props = defineProps({ text: { type: String, default: "logout" } });
 const textRef = toRef(props, "text").value;
+
 const axios = inject("axios");
-const api = "logout";
+const router = inject("router");
 
 function logout() {
+  const api = "logout";
+
   axios(`${window.location.protocol}//${window.location.hostname}:3000/user/${api}`, { method: "POST" })
     .then((res) => {
       if (200 === res.status && true === res.data.success) {
         ElMessage({ type: "success", message: `${api} success`, showClose: true });
+        router.push({ name: "Login" });
         return;
       }
 
