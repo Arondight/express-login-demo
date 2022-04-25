@@ -6,17 +6,17 @@
     <el-form-item :clearable="true" label="password" prop="password">
       <el-input v-model="loginForm.password" placeholder="at least 6 characters" show-password />
     </el-form-item>
-    <el-form-item v-if="isRegister" :rules="confirmItemRules" :clearable="true" label="confirm" prop="confirm">
+    <el-form-item v-if="isRegisterRef" :rules="confirmItemRules" :clearable="true" label="confirm" prop="confirm">
       <el-input v-model="loginForm.confirm" placeholder="confirm password" show-password />
     </el-form-item>
     <el-form-item>
       <el-row :gutter="3">
         <el-col :span="12">
-          <el-button @click="submit" type="primary">{{ true === isRegister ? "register" : "login" }}</el-button>
+          <el-button @click="submit" type="primary">{{ true === isRegisterRef ? "register" : "login" }}</el-button>
         </el-col>
         <el-col :span="12">
-          <el-button @click="isRegister = !isRegister">{{
-            true === isRegister ? "login with an account" : "register an account"
+          <el-button @click="isRegisterRef = !isRegisterRef">{{
+            true === isRegisterRef ? "login with an account" : "register an account"
           }}</el-button>
         </el-col>
       </el-row>
@@ -30,9 +30,10 @@ import lodash from "lodash";
 import { defineProps, inject, reactive, ref, toRef } from "vue";
 
 const axios = inject("axios");
+const router = inject("router");
 const props = defineProps({ type: { type: String, default: "login" } });
-const type = ref(toRef(props, "type").value);
-let isRegister = ref("register" === type.value);
+const typeRef = ref(toRef(props, "type").value);
+let isRegisterRef = ref("register" === typeRef.value);
 const loginFormRef = ref();
 const loginForm = reactive({ username: "", password: "", confirm: "" });
 const check = {
@@ -81,7 +82,7 @@ const confirmItemRules = reactive([
 function submit() {
   loginFormRef.value
     .validate((valid) => {
-      const api = true === isRegister.value ? "register" : "login";
+      const api = true === isRegisterRef.value ? "register" : "login";
 
       if (!valid) {
         ElMessage({ type: "error", message: "please check your options", showClose: true });
@@ -94,14 +95,15 @@ function submit() {
       })
         .then((res) => {
           if (200 === res.status && true === res.data.success) {
-            if (true === isRegister.value) {
-              isRegister.value = !isRegister.value;
-              ElMessage({ type: "success", message: "register success", showClose: true });
+            ElMessage({ type: "success", message: `${api} success`, showClose: true });
+
+            if (true === isRegisterRef.value) {
+              isRegisterRef.value = !isRegisterRef.value;
               loginFormRef.value.resetFields();
               return;
             }
 
-            ElMessage({ type: "success", message: "login success", showClose: true });
+            router.push({ name: "Home" });
             return;
           }
 

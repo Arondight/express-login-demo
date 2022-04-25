@@ -1,5 +1,5 @@
 function get(req, res) {
-  res.json({ session: true, message: "session get" });
+  res.json({ success: true, message: "session get" });
 }
 
 function remove(req, res) {

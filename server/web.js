@@ -1,3 +1,4 @@
+import compression from "compression";
 import history from "connect-history-api-fallback";
 import express from "express";
 import morgan from "morgan";
@@ -15,6 +16,7 @@ function startServer() {
   morgan.token("token", () => `debug: ${m_NAME}:`);
   server.use(morgan(":token :method :url :response-time"));
   server.use(history());
+  server.use(compression());
   server.use(express.static(distDir));
   server.listen(config.web.port, "0.0.0.0");
 }

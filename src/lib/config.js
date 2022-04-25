@@ -18,7 +18,7 @@ class Config {
         },
         session: {
           secret: "express-login-demo-session-secret",
-          cookie: { maxAge: 5 * 60 * 60 },
+          cookie: { maxAge: 60 * 1000 },
           mongodb: {
             connection: "mongodb://localhost:27019/express-login-demo-session",
             collection: "session",

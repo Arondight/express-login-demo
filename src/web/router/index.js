@@ -1,14 +1,16 @@
-import Hello from "@views/Hello.vue";
-import Login from "@views/Login.vue";
-import NotFound from "@views/NotFound.vue";
-import Register from "@views/Register.vue";
+import HelloPage from "@views/HelloPage.vue";
+import HomePage from "@views/HomePage.vue";
+import LoginPage from "@views/LoginPage.vue";
+import NotFoundPage from "@views/NotFoundPage.vue";
+import RegisterPage from "@views/RegisterPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-  { path: "/hello", name: "Home", component: Hello },
-  { path: "/login", name: "Login", component: Login },
-  { path: "/register", name: "Register", component: Register },
-  { path: "/:catchAll(.*)", name: "NotFound", component: NotFound },
+  { path: "/", name: "Home", component: HomePage },
+  { path: "/hello", name: "Hello", component: HelloPage },
+  { path: "/login", name: "Login", component: LoginPage },
+  { path: "/register", name: "Register", component: RegisterPage },
+  { path: "/:catchAll(.*)", name: "NotFound", component: NotFoundPage },
 ];
 
 export default createRouter({ history: createWebHistory(), routes });

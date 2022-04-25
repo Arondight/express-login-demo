@@ -7,7 +7,9 @@ import "element-plus/dist/index.css";
 
 const app = createApp(App);
 
-app.config.globalProperties.axios = axios;
-app.provide("axios", app.config.globalProperties.axios);
+axios.defaults.withCredentials = true;
+
+app.provide("axios", axios);
+app.provide("router", router);
 app.use(router);
 app.mount("#app");
