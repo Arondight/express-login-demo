@@ -17,7 +17,7 @@ function debug(...args) {
 function startServer() {
   const server = express();
   const store = connectMongoDBSession(session);
-  const maxAge = config.api.session.cookie.maxAge || 5 * 60 * 60;
+  const maxAge = config.api.session.cookie.maxAge || 60 * 1000;
 
   debug("port", config.api.port);
   debug("session secret", config.api.session.secret);
@@ -27,18 +27,21 @@ function startServer() {
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
   server.use(morgan(":token :method :url :response-time"));
-  server.use(cors({ credentials: true, origin: true }));
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+  server.use(cors({ credentials: true, origin: true }));
   server.use(
     session({
       secret: config.api.session.secret,
       resave: false,
       saveUninitialized: true,
+      // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
       cookie: {
         maxAge,
         expires: new Date(Date.now() + maxAge),
         secure: false,
+        httpOnly: true,
       },
       store: new store({
         uri: config.api.session.mongodb.connection,

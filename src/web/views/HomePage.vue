@@ -1,16 +1,18 @@
 <template>
-  <el-container>
-    <el-header>
-      <LogoutButton v-show="true === loggedRef" />
-      <LoginButton v-show="false === loggedRef" />
-    </el-header>
-    <el-main v-show="true === loggedRef">
-      <el-table :data="users" stripe>
-        <el-table-column prop="username" label="username" sortable />
-        <el-table-column prop="ctime" label="ctime" sortable />
-      </el-table>
-    </el-main>
-  </el-container>
+  <div>
+    <el-container>
+      <el-header>
+        <LogoutButton v-show="true === loggedRef" />
+        <LoginButton v-show="false === loggedRef" />
+      </el-header>
+      <el-main v-show="true === loggedRef">
+        <el-table :data="users" stripe>
+          <el-table-column prop="username" label="username" sortable />
+          <el-table-column prop="ctime" label="ctime" sortable />
+        </el-table>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script setup>
@@ -24,9 +26,7 @@ const users = reactive([]);
 
 (function init() {
   axios(`${window.location.protocol}//${window.location.hostname}:3000/user/check`, { method: "POST" })
-    .then((res) => {
-      return (loggedRef.value = 200 === res.status && true === res.data.success);
-    })
+    .then((res) => (loggedRef.value = 200 === res.status && true === res.data.success))
     .then((logged) => {
       if (true === logged) {
         axios(`${window.location.protocol}//${window.location.hostname}:3000/user/users`, { method: "GET" }).then(

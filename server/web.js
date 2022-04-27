@@ -15,6 +15,7 @@ function startServer() {
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
   server.use(morgan(":token :method :url :response-time"));
+  // https://router.vuejs.org/guide/essentials/history-mode.html#html5-mode
   server.use(history());
   server.use(compression());
   server.use(express.static(distDir));

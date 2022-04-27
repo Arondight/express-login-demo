@@ -1,5 +1,7 @@
 <template>
-  <HelloButton text="Vue.js" />
+  <div>
+    <HelloButton text="Vue.js" />
+  </div>
 </template>
 
 <script setup>

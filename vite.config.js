@@ -7,7 +7,7 @@ import Components from "unplugin-vue-components/vite";
 import { config as _config } from "#@src/lib";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
+function getConfig({ command, mode }) {
   const env = loadEnv(mode, _config.dir.root);
   const root = path.resolve(_config.dir.root, "src", "web");
   const dir = {
@@ -41,4 +41,6 @@ export default defineConfig(({ command, mode }) => {
   }
 
   return config;
-});
+}
+
+export default defineConfig(getConfig);
