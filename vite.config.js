@@ -13,6 +13,7 @@ function getConfig({ command, mode }) {
   const dir = {
     components: path.resolve(root, "components"),
     css: path.resolve(root, "css"),
+    lib: path.resolve(root, "lib"),
     root,
     router: path.resolve(root, "router"),
     views: path.resolve(root, "views"),
@@ -29,6 +30,7 @@ function getConfig({ command, mode }) {
       "@_": dir.root,
       "@components": dir.components,
       "@css": dir.css,
+      "@lib": dir.lib,
       "@router": dir.router,
       "@views": dir.views,
     },

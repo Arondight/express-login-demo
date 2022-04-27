@@ -6,7 +6,7 @@ A login demo with [Express.js](https://github.com/expressjs/express.git) and [Vu
 
 The following technologies were used in the project, you can find them in the code.
 
-1. Session.
+1. Session based authentication.
 2. HTML5 history mode.
 3. CORS with cookies.
 
@@ -25,7 +25,7 @@ curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | sudo -E bash -s
 1. [podman](https://podman.io/getting-started/installation) (and start as a service).
 2. [podman-compose](https://github.com/containers/podman-compose#installation).
 
-## Build
+## Run
 
 ```shell
 git clone https://github.com/Arondight/express-login-demo.git

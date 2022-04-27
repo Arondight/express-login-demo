@@ -6,9 +6,14 @@
         <LoginButton v-show="false === loggedRef" />
       </el-header>
       <el-main v-show="true === loggedRef">
-        <el-table :data="users" stripe>
+        <el-table :data="usersTableData" stripe>
           <el-table-column prop="username" label="username" sortable />
           <el-table-column prop="ctime" label="ctime" sortable />
+          <el-table-column label="manage">
+            <template #default="scope">
+              <RemoveButton @remove:done="getUsersTableData" :username="scope.row.username" />
+            </template>
+          </el-table-column>
         </el-table>
       </el-main>
     </el-container>
@@ -18,25 +23,47 @@
 <script setup>
 import LoginButton from "@components/LoginButton.vue";
 import LogoutButton from "@components/LogoutButton.vue";
-import { inject, reactive, ref } from "vue";
+import RemoveButton from "@components/RemoveButton.vue";
+import api from "@lib/api";
+import { ElMessage } from "element-plus";
+import { reactive, ref } from "vue";
 
-const axios = inject("axios");
 const loggedRef = ref(true);
-const users = reactive([]);
+const usersTableData = reactive([]);
 
-(function init() {
-  axios(`${window.location.protocol}//${window.location.hostname}:3000/user/check`, { method: "POST" })
-    .then((res) => (loggedRef.value = 200 === res.status && true === res.data.success))
+function getUsers() {
+  const apiName = "users";
+  const apiHandler = api.user[apiName] || (() => null);
+
+  return apiHandler().then((res) => {
+    clearUsersTableData();
+    res.data.users.forEach((c) => usersTableData.push(c));
+  });
+}
+
+function checkLogin() {
+  const apiName = "check";
+  const apiHandler = api.user[apiName] || (() => null);
+
+  return apiHandler().then((res) => (loggedRef.value = 200 === res.status && true === res.data.success));
+}
+
+function clearUsersTableData() {
+  usersTableData.splice(0, usersTableData.length);
+}
+
+function getUsersTableData() {
+  checkLogin()
     .then((logged) => {
       if (true === logged) {
-        axios(`${window.location.protocol}//${window.location.hostname}:3000/user/users`, { method: "GET" }).then(
-          (res) => res.data.users.forEach((c) => users.push(c))
-        );
-        return;
+        getUsers();
+      } else {
+        localStorage.removeItem("username");
+        clearUsersTableData();
       }
-
-      users.splice(0, users.length);
     })
-    .catch((e) => console.error(e));
-})();
+    .catch((e) => ElMessage({ type: "error", message: e.message || `api server failed`, showClose: true }));
+}
+
+getUsersTableData();
 </script>

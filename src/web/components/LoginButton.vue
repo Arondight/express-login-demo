@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="login">{{ textRef }} </el-button>
+  <el-button @click="login">{{ textRef }}</el-button>
 </template>
 
 <script setup>

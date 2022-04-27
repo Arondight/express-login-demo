@@ -25,11 +25,10 @@
 </template>
 
 <script setup>
+import api from "@lib/api";
 import { ElMessage } from "element-plus";
-import lodash from "lodash";
 import { defineProps, inject, reactive, ref, toRef } from "vue";
 
-const axios = inject("axios");
 const router = inject("router");
 const props = defineProps({ type: { type: String, default: "login" } });
 const typeRef = ref(toRef(props, "type").value);
@@ -80,36 +79,35 @@ const confirmItemRules = reactive([
 ]);
 
 function submit() {
+  const apiName = true === isRegisterRef.value ? "register" : "login";
+  const apiHandler = api.user[apiName] || (() => null);
+
   loginFormRef.value
     .validate((valid) => {
-      const api = true === isRegisterRef.value ? "register" : "login";
+      if (true === valid) {
+        apiHandler(loginForm.username, loginForm.password)
+          .then((res) => {
+            if (200 === res.status && true === res.data.success) {
+              ElMessage({ type: "success", message: `${apiName} success`, showClose: true });
 
-      if (!valid) {
-        ElMessage({ type: "error", message: "please check your options", showClose: true });
-        return;
-      }
+              if ("string" === typeof res.data.username) {
+                localStorage.setItem("username", res.data.username);
+              }
 
-      axios(`${window.location.protocol}//${window.location.hostname}:3000/user/${api}`, {
-        method: "POST",
-        data: lodash.pick(loginForm, ["username", "password"]),
-      })
-        .then((res) => {
-          if (200 === res.status && true === res.data.success) {
-            ElMessage({ type: "success", message: `${api} success`, showClose: true });
-
-            if (true === isRegisterRef.value) {
-              isRegisterRef.value = !isRegisterRef.value;
-              loginFormRef.value.resetFields();
-              return;
+              if (true === isRegisterRef.value) {
+                isRegisterRef.value = !isRegisterRef.value;
+                loginFormRef.value.resetFields();
+              } else {
+                router.push({ name: "Home" });
+              }
+            } else {
+              ElMessage({ type: "error", message: res.data.message || `${apiName} failed`, showClose: true });
             }
-
-            router.push({ name: "Home" });
-            return;
-          }
-
-          ElMessage({ type: "error", message: res.data.message || `${api} failed`, showClose: true });
-        })
-        .catch((e) => ElMessage({ type: "error", message: e.message || "api server error", showClose: true }));
+          })
+          .catch((e) => ElMessage({ type: "error", message: e.message || "api server error", showClose: true }));
+      } else {
+        ElMessage({ type: "error", message: "please check your options", showClose: true });
+      }
     })
     .catch((e) => console.error(e));
 }

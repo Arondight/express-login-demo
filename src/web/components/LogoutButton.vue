@@ -1,29 +1,29 @@
 <template>
-  <el-button @click="logout">{{ textRef }} </el-button>
+  <el-button @click="logout">{{ textRef }}</el-button>
 </template>
 
 <script setup>
+import api from "@lib/api";
 import { ElMessage } from "element-plus";
 import { defineProps, inject, toRef } from "vue";
 
 const props = defineProps({ text: { type: String, default: "logout" } });
 const textRef = toRef(props, "text").value;
-
-const axios = inject("axios");
 const router = inject("router");
 
 function logout() {
-  const api = "logout";
+  const apiName = "logout";
+  const apiHandler = api.user[apiName] || (() => null);
 
-  axios(`${window.location.protocol}//${window.location.hostname}:3000/user/${api}`, { method: "POST" })
+  apiHandler()
     .then((res) => {
       if (200 === res.status && true === res.data.success) {
-        ElMessage({ type: "success", message: `${api} success`, showClose: true });
+        localStorage.removeItem("username");
         router.push({ name: "Login" });
-        return;
+        ElMessage({ type: "success", message: `${apiName} success`, showClose: true });
+      } else {
+        ElMessage({ type: "error", message: res.data.message || `${apiName} failed`, showClose: true });
       }
-
-      ElMessage({ type: "error", message: res.data.message || `${api} failed`, showClose: true });
     })
     .catch((e) => ElMessage({ type: "error", message: e.message || "api server error", showClose: true }));
 }
