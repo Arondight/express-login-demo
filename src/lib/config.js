@@ -14,13 +14,13 @@ class Config {
       api: {
         port: 3000,
         mongodb: {
-          connection: "mongodb://localhost:27019/express-login-demo",
+          connection: "mongodb://localhost:27019/express-auth-demo",
         },
         session: {
-          secret: "express-login-demo-session-secret",
+          secret: "express-auth-demo-session-secret",
           cookie: { maxAge: 60 * 1000 },
           mongodb: {
-            connection: "mongodb://localhost:27019/express-login-demo-session",
+            connection: "mongodb://localhost:27019/express-auth-demo-session",
             collection: "session",
           },
         },
