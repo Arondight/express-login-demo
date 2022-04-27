@@ -2,11 +2,11 @@
 
 ## About
 
-An authentication demo with [Express.js](https://github.com/expressjs/express.git) and [Vue.js](https://github.com/vuejs/core.git). I use this to practice front-end techniques. The following technologies were used in the project, you can find them in the code.
+An authentication demo with [Express.js](https://github.com/expressjs/express.git) and [Vue.js](https://github.com/vuejs/core.git). The following technologies were used in the project, you can find them in the code.
 
 1. Session based authentication.
 2. HTML5 history mode.
-3. CORS with cookies.
+3. CORS with cookie.
 
 ## Dependence
 
