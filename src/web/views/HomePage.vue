@@ -7,7 +7,19 @@
       </el-header>
       <el-main v-show="true === loggedRef">
         <el-table :data="usersTableData" stripe>
-          <el-table-column prop="username" label="username" sortable />
+          <el-table-column prop="username" label="username" sortable>
+            <template #default="scope">
+              <el-tag
+                :key="scope.row.username"
+                :effect="scope.row.username === whoami() ? 'dark' : 'plain'"
+                type="success"
+                size="large"
+                class="mx-1"
+              >
+                {{ scope.row.username }}
+              </el-tag>
+            </template>
+          </el-table-column>
           <el-table-column prop="ctime" label="ctime" sortable />
           <el-table-column label="manage">
             <template #default="scope">
@@ -30,6 +42,10 @@ import { reactive, ref } from "vue";
 
 const loggedRef = ref(true);
 const usersTableData = reactive([]);
+
+function whoami() {
+  return localStorage.getItem("username");
+}
 
 function getUsers() {
   const apiName = "users";

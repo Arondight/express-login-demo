@@ -1,13 +1,18 @@
 <template>
   <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" label-position="left" label-width="auto">
     <el-form-item label="username" prop="username">
-      <el-input v-model="loginForm.username" placeholder="at least 3 characters" />
+      <el-input v-model="loginForm.username" placeholder="at least 3 characters" autofocus />
     </el-form-item>
     <el-form-item :clearable="true" label="password" prop="password">
-      <el-input v-model="loginForm.password" placeholder="at least 6 characters" show-password />
+      <el-input
+        @keyup.enter.native="submit"
+        v-model="loginForm.password"
+        placeholder="at least 6 characters"
+        show-password
+      />
     </el-form-item>
     <el-form-item v-if="isRegisterRef" :rules="confirmItemRules" :clearable="true" label="confirm" prop="confirm">
-      <el-input v-model="loginForm.confirm" placeholder="confirm password" show-password />
+      <el-input @keyup.enter.native="submit" v-model="loginForm.confirm" placeholder="confirm password" show-password />
     </el-form-item>
     <el-form-item>
       <el-row :gutter="3">
