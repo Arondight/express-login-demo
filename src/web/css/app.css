@@ -7,6 +7,12 @@
   margin-top: 60px;
 }
 
+#login-form-div {
+  margin: auto;
+  text-align: center;
+  width: 350px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
