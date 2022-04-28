@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-import api from "@lib/api";
 import { ElMessage } from "element-plus";
 import { defineProps, inject, toRef } from "vue";
+import api from "@lib/api";
 
 const props = defineProps({ text: { type: String, default: "logout" } });
 const textRef = toRef(props, "text").value;

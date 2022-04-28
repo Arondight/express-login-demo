@@ -12,7 +12,12 @@
   },
   "plugins": ["sort-exports", "import", "node", "promise"],
   "rules": {
-    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
+    "sort-exports/sort-exports": [
+      "error",
+      {
+        "sortDir": "asc"
+      }
+    ],
     "sort-imports": [
       "error",
       {
@@ -34,7 +39,8 @@
       "plugins": ["vue"]
     },
     {
-      "files": ["**/*.html"],
+      "files": ["*.html"],
+      "plugins": ["vue"],
       "rules": { "vue/comment-directive": "off" }
     }
   ]

@@ -25,12 +25,12 @@
 </template>
 
 <script setup>
+import { ElMessage } from "element-plus";
+import { reactive, ref } from "vue";
 import LoginButton from "@components/LoginButton.vue";
 import LogoutButton from "@components/LogoutButton.vue";
 import RemoveButton from "@components/RemoveButton.vue";
 import api from "@lib/api";
-import { ElMessage } from "element-plus";
-import { reactive, ref } from "vue";
 
 const loggedRef = ref(true);
 const usersTableData = reactive([]);

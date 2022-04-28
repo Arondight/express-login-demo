@@ -30,9 +30,9 @@
 </template>
 
 <script setup>
-import api from "@lib/api";
 import { ElMessage } from "element-plus";
 import { defineProps, inject, reactive, ref, toRef } from "vue";
+import api from "@lib/api";
 
 const router = inject("router");
 const props = defineProps({ type: { type: String, default: "login" } });

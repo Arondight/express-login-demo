@@ -1,10 +1,10 @@
-import vue from "@vitejs/plugin-vue";
 import path from "path";
 import { defineConfig, loadEnv } from "vite";
 import AutoImport from "unplugin-auto-import/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
 import { config as _config } from "#@src/lib";
+import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 function getConfig({ command, mode }) {
