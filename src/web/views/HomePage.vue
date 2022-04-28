@@ -2,24 +2,16 @@
   <div>
     <el-container>
       <el-header>
-        <LogoutButton v-show="true === loggedRef" />
-        <LoginButton v-show="false === loggedRef" />
+        <template v-if="true === loggedRef">
+          <LogoutButton />
+        </template>
+        <template v-else>
+          <LoginButton />
+        </template>
       </el-header>
-      <el-main v-show="true === loggedRef">
-        <el-table :data="usersTableData" stripe>
-          <el-table-column prop="username" label="username" sortable>
-            <template #default="scope">
-              <el-tag
-                :key="scope.row.username"
-                :effect="scope.row.username === whoami() ? 'dark' : 'plain'"
-                type="success"
-                size="large"
-                class="mx-1"
-              >
-                {{ scope.row.username }}
-              </el-tag>
-            </template>
-          </el-table-column>
+      <el-main v-if="true === loggedRef">
+        <el-table :data="usersTableData" :row-class-name="getUsersTableRowClass">
+          <el-table-column prop="username" label="username" sortable />
           <el-table-column prop="ctime" label="ctime" sortable />
           <el-table-column label="manage">
             <template #default="scope">
@@ -42,10 +34,6 @@ import { reactive, ref } from "vue";
 
 const loggedRef = ref(true);
 const usersTableData = reactive([]);
-
-function whoami() {
-  return localStorage.getItem("username");
-}
 
 function getUsers() {
   const apiName = "users";
@@ -79,6 +67,10 @@ function getUsersTableData() {
       }
     })
     .catch((e) => ElMessage({ type: "error", message: e.message || `api server failed`, showClose: true }));
+}
+
+function getUsersTableRowClass({ row }) {
+  return row.username === localStorage.getItem("username") ? "success-row" : "";
 }
 
 getUsersTableData();
