@@ -32,7 +32,7 @@
     "update": "npx ncu -u; npm update"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "2.3.1",
+    "@vitejs/plugin-vue": "2.3.2",
     "axios": "0.27.2",
     "body-parser": "1.20.0",
     "compression": "1.7.4",
@@ -41,17 +41,17 @@
     "cors": "2.8.5",
     "crypto-js": "4.1.1",
     "element-plus": "2.1.11",
-    "express": "4.18.0",
+    "express": "4.18.1",
     "express-session": "1.17.2",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "mongoose": "6.3.1",
+    "mongoose": "6.3.2",
     "morgan": "1.10.0",
     "unplugin-auto-import": "0.7.1",
     "unplugin-vue-components": "0.19.3",
-    "vite": "2.9.6",
+    "vite": "2.9.8",
     "vue": "3.2.33",
-    "vue-router": "4.0.14"
+    "vue-router": "4.0.15"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
@@ -62,7 +62,7 @@
     "eslint-plugin-sort-exports": "0.6.0",
     "eslint-plugin-vue": "8.7.1",
     "eslint-plugin-yml": "0.14.0",
-    "npm-check-updates": "12.5.9",
+    "npm-check-updates": "12.5.11",
     "prettier": "2.6.2"
   }
 }

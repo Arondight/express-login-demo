@@ -7,6 +7,7 @@ An authentication demo with [Express.js](https://github.com/expressjs/express.gi
 1. Session based authentication.
 2. HTML5 history mode.
 3. CORS with cookie.
+4. HTTPS with self-signed certificate.
 
 ## Dependence
 
@@ -23,7 +24,9 @@ curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | sudo -E bash -s
 1. [podman](https://podman.io/getting-started/installation) (and start as a service).
 2. [podman-compose](https://github.com/containers/podman-compose#installation).
 
-## Run
+## Usage
+
+### Start Server
 
 ```shell
 git clone https://github.com/Arondight/express-auth-demo.git
@@ -32,8 +35,17 @@ sudo podman-compose -f ./podman-compose/mongodb.yml up -d
 npm install
 npm run build
 npm start
-xdg-open https://localhost:8000
 ```
+
+### Trust Self-signed Certificate
+
+Run `xdg-open https://localhost:3000/hello` and `xdg-open https://localhost:8000/hello`, then trust certificate in browser.
+
+> In Firefox click the `Advanced...` button, then the `I understand the risk, and want to continue` button.
+
+### Visit Home Page
+
+Run `xdg-open https://localhost:8000`.
 
 ## LICENSE
 

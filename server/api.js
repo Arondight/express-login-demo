@@ -3,7 +3,10 @@ import connectMongoDBSession from "connect-mongodb-session";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
+import fs from "fs";
+import https from "https";
 import morgan from "morgan";
+import path from "path";
 import { mongodb } from "#@src/api/lib";
 import router from "#@src/api/router";
 import { config, logger } from "#@src/lib";
@@ -26,6 +29,7 @@ function startServer() {
   debug("session cookie maxAge", maxAge);
 
   morgan.token("token", () => `debug: ${m_NAME}:`);
+
   server.use(morgan(":token :method :url :response-time"));
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
@@ -40,7 +44,7 @@ function startServer() {
       cookie: {
         maxAge,
         expires: new Date(Date.now() + maxAge),
-        secure: false,
+        secure: true,
         httpOnly: true,
       },
       store: new store({
@@ -51,7 +55,16 @@ function startServer() {
   );
   server.use("/hello", router.hello);
   server.use("/user", router.user);
-  server.listen(config.api.port, "0.0.0.0");
+  https
+    .createServer(
+      {
+        cert: fs.readFileSync(path.resolve(config.dir.cert, config.cert.cert)),
+        key: fs.readFileSync(path.resolve(config.dir.cert, config.cert.key)),
+        passphrase: config.cert.pass,
+      },
+      server
+    )
+    .listen(config.api.port, "0.0.0.0");
 }
 
 async function post() {

@@ -25,17 +25,29 @@ class Config {
           },
         },
       },
-      web: { port: 8000 },
+      cert: {
+        cert: "cert.pem",
+        key: "key.pem",
+        pass: "express-auth-demo",
+      },
+      web: {
+        port: 8000,
+      },
     };
     const api = Object.assign(defaultSettings.api, yaml.load("api"));
+    const cert = Object.assign(defaultSettings.cert, yaml.load("cert"));
     const web = Object.assign(defaultSettings.web, yaml.load("web"));
-    const dir = { root: rootDir, server: path.resolve(rootDir, "server") };
+    const dir = {
+      cert: path.resolve(rootDir, "cert"),
+      root: rootDir,
+      server: path.resolve(rootDir, "server"),
+    };
 
     api.port = parseInt(api.port);
     api.session.cookie.maxAge = parseInt(api.session.cookie.maxAge);
     web.port = parseInt(web.port);
 
-    this._config = { api, web, dir };
+    this._config = { api, cert, dir, web };
   }
 
   value() {
