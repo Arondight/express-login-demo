@@ -39,13 +39,20 @@ npm start
 
 ### Trust Self-signed Certificate
 
-Run `xdg-open https://localhost:3000/hello` and `xdg-open https://localhost:8000/hello`, then trust certificate in browser.
+Run the command below and trust the certificate in browser.
 
-> In Firefox click the `Advanced...` button, then the `I understand the risk, and want to continue` button.
+```shell
+xdg-open https://localhost:3000/hello
+xdg-open https://localhost:8000/hello
+```
+
+In Firefox click the `Advanced...` then the `Accept the Risk and Continue`. In Chrome click `Adavanced` then click `Proceed to localhost (unsafe)`.
 
 ### Visit Home Page
 
-Run `xdg-open https://localhost:8000`.
+```shell
+xdg-open https://localhost:8000
+```
 
 ## LICENSE
 
