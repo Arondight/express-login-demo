@@ -12,6 +12,7 @@ function connectFactory() {
 
     run = true;
 
+    mongoose.set("strictQuery", true);
     mongoose
       .connect(config.api.mongodb.connection)
       .then(() => logger.info("mongodb connected."))

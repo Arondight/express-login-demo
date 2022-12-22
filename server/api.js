@@ -45,6 +45,7 @@ function startServer() {
         maxAge,
         expires: new Date(Date.now() + maxAge),
         secure: true,
+        sameSite: "none",
         httpOnly: true,
       },
       store: new store({

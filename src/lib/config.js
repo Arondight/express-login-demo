@@ -34,9 +34,9 @@ class Config {
         port: 8000,
       },
     };
-    const api = Object.assign(defaultSettings.api, yaml.load("api"));
-    const cert = Object.assign(defaultSettings.cert, yaml.load("cert"));
-    const web = Object.assign(defaultSettings.web, yaml.load("web"));
+    const api = { ...defaultSettings.api, ...yaml.load("api") };
+    const cert = { ...defaultSettings.cert, ...yaml.load("cert") };
+    const web = { ...defaultSettings.web, ...yaml.load("web") };
     const dir = {
       cert: path.resolve(rootDir, "cert"),
       root: rootDir,
