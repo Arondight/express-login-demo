@@ -21,7 +21,10 @@ function register(req, res) {
       if (docs) {
         res.json({ success: false, message: "already registered" });
       } else {
-        instance.save((err) => res.json({ success: !err, message: `register ${err ? "failed" : "success"}` }));
+        instance
+          .save()
+          .then(() => res.json({ success: true, message: "register success" }))
+          .catch(() => res.json({ success: false, message: "register failed" }));
       }
     })
     .catch((err) => res.json({ success: false, message: err }));

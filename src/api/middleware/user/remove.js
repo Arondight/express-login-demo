@@ -8,13 +8,15 @@ function remove(req, res) {
   mongodb.models.User.findOne({ username: req.body.username.toLowerCase() })
     .then((docs) => {
       if (!docs) {
-        res.json({ success: false, message: "not found" });
-        return;
+        return res.json({ success: false, message: "not found" });
       }
 
-      docs.remove((err) => res.json({ success: !err, message: `remove user ${err ? "failed" : "success"}` }));
+      docs
+        .deleteOne()
+        .then(() => res.json({ success: true, message: "remove user success" }))
+        .catch(() => res.json({ success: false, message: "remove user failed" }));
     })
-    .catch((err) => res.json(err));
+    .catch((err) => res.json({ success: false, message: err }));
 }
 
 export default remove;

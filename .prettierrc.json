@@ -7,6 +7,7 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": ["^([a-zA-Z0-9-]+)$", "^[^#@](.+)/(.+)$", "^#@(.+)/(.+)$", "^@(.+)/(.+)$", "^[.](.*)"],
   "importOrderCaseInsensitive": false,
   "importOrderGroupNamespaceSpecifiers": true,
