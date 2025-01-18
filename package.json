@@ -45,7 +45,7 @@
     "express-session": "1.18.1",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "mongoose": "8.8.3",
+    "mongoose": "8.9.5",
     "morgan": "1.10.0",
     "unplugin-auto-import": "0.16.6",
     "unplugin-vue-components": "0.25.1",
